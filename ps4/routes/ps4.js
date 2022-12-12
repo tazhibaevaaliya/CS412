@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const rp = require("request-promise");
 const request = require("request");
-// const fetch = require("node-fetch");
+const fetch = require("node-fetch");
 require("dotenv").config();
 const insertLocationInURL = (city, country) => {
   return `https://aerisweather1.p.rapidapi.com/forecasts/${city},${country}`;
@@ -15,36 +15,10 @@ const options = {
     useQueryString: true,
   },
 };
-//router.post("/oneB", function (req, res, next) {
-/* GET home page. */
-// router.get("/", (req, res) => {
-//   console.log(req);
-//   // console.log(req);
-//   res.render("oneB", {});
-// });
 
 router.get("/", (req, res) => {
   res.render("form", {});
 });
-
-// router.post("/oneB", function (req, res, next) {
-//   return new Promise((resolve, reject) => {
-//     request("http://kidpub.com", (err, response, body) => {
-//       if (response.statusCode == 200) {
-//         resolve(body);
-//       } else {
-//         reject("bad call");
-//       }
-//     });
-//   }).then(
-//     (body) => {
-//       res.render("index", { title: body });
-//     },
-//     (err) => {
-//       res.render("index", { title: err });
-//     }
-//   );
-// });
 
 router.post("/oneB", function (req, res, next) {
   const city = req.body.city;
@@ -57,14 +31,11 @@ router.post("/oneB", function (req, res, next) {
   rp(options)
     .then(function (response) {
       console.log(response["response"]);
-      // res.render("results", { response });
       res.send(response);
     })
     .catch(function (err) {
       console.error(err);
     });
-
-  // res.render("oneB", {});
 });
 
 router.post("/oneC", async function (req, res) {
